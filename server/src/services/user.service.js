@@ -12,22 +12,21 @@ module.exports = class userService {
         SoDienThoai: data.SoDienThoai,
         GioiTinh: data.GioiTinh,
         DiaChi: data.DiaChi,
-        MatKhau: bcrypt.hashSync(data.password, 10), //salt rounds: 10
+        MatKhau: bcrypt.hashSync(data.MatKhau, 10), //salt rounds: 10
       });
 
-      return  await newUser.save()
-                    .then((res) =>{
-                        return{message:"Đăng ký thành công ! Hãy đăng nhập vào tài khoản của bạn"}
-                     })
-                    .catch((erorr) =>{
-                        return { message: erorr}
-                     })
+      try {
+        await newUser.save();
+        return { message: "Đăng ký thành công! Hãy đăng nhập vào tài khoản của bạn" };
+      } catch (error) {
+        return { message: error };
+      }
     } else {
         return { message: 'Số điện thoại đã tồn tại !' };
     }
   }
 
-   async login(user) {
+   async signIn(user) {
     
     if(!user) {
       return { message: "Thông tin đăng nhập không hợp lệ !"}
@@ -38,10 +37,10 @@ module.exports = class userService {
       const userCheck = await userModel.findOne({SoDienThoai: user.SoDienThoai})
 
       if(!userCheck) {
-        return { message: "Tài khoản không tòn tại !"}
+        return { message: "Tài khoản không tồn tại !"}
       }
 
-      const isPasswordValid = await bcrypt.compare(userCheck.MatKhau , user.MatKhau)
+      const isPasswordValid = await bcrypt.compare(user.MatKhau, userCheck.MatKhau)
 
       if(!isPasswordValid) {
         return { message: "Mật khẩu không chính xác !"}
