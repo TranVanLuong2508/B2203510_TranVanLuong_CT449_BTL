@@ -28,19 +28,38 @@ module.exports = class userService {
   }
 
    async login(user) {
-    const userCheck =  await userModel.findOne({ SoDienThoai: user?.SoDienThoai }) // optianl chaining "?."
+    
+    if(!user) {
+      return { message: "Thông tin đăng nhập không hợp lệ !"}
+    }
 
-    if(userCheck) {
-      if( await bcrypt.compare(user?.MatKhau , userCheck.MatKhau) ) {
+    try {
 
-        const {MatKhau, ...userInfor} = userCheck._doc 
-        const token  = jwt.sign(userInfor, 'CT449', { expiresIn: '24h' }) 
-        return { data: {user: userInfor, token}, message: "Đăng nhập thành công !"} 
-      } else {
-        return {message: "Mật khẩu không đúng !"};
+      const userCheck = await userModel.findOne({SoDienThoai: user.SoDienThoai})
+
+      if(!userCheck) {
+        return { message: "Tài khoản không tòn tại !"}
       }
-    } else {
-      return {message: "Số điện thoại không đúng !"}
+
+      const isPasswordValid = await bcrypt.compare(userCheck.MatKhau , user.MatKhau)
+
+      if(!isPasswordValid) {
+        return { message: "Mật khẩu không chính xác !"}
+      }
+
+      const { MatKhau, ...userInfor } = userCheck._doc
+
+      //sign(payload, secretOrPrivateKey, [options])
+      const token = jwt.sign(userInfor, process.env.JWT_SECRET || 'B2203510_CT449_HKI2024-2025', { expiresIn:'24h'})
+
+      return {
+        data:{ user: userInfor, token},
+        message:"Đăng nhập thành công !"
+      }
+      
+    } catch (error) {
+      console.log("Có lỗi trong quá trình đăng nhập", error)
+      return {message: "Có lỗi xảy ra trong quá trình đăng nhập"}
     }
   }
 };
