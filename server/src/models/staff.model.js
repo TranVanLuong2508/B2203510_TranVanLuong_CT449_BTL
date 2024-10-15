@@ -8,8 +8,11 @@ const staffSchema = new mongoose.Schema(
     SoDienThoai: { type: String, required: true },
     MatKhau: { type: String, required: true },
   },
-  {timestamps: true, minimize: false},
-  { collection: 'staffs' }
+  {
+    timestamps: true,
+    minimize: false,
+    collection: 'staffs'
+  },
 );
 
 module.exports = mongoose.model("staffSchema", staffSchema);
