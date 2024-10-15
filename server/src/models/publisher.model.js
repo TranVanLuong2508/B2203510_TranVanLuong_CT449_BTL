@@ -7,7 +7,10 @@ const publisherSchema = new mongoose.Schema(
     TenNXB: { type: String, require: true },
     DiaChi: { type: String, require: true },
   },
-  { timestamps: true, minimize: false }
+  { timestamps: true,
+    minimize: false,
+    collection:'NhaXuatBan' 
+  }
 );
 
 publisherSchema.plugin(AutoIncrement, { inc_field: "MaNXB", start_seq: 1000 });

@@ -1,7 +1,3 @@
-const user = require("../models/user.model")
-const staff = require("../models/staff.model")
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const ApiError = require('../api-error')
 const userService = require('../services/user.service')
 const staffService = require('../services/staff.service')
