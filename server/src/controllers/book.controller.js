@@ -1,3 +1,19 @@
-module.exports.index  = (req,res) =>{
-    res.send("hellobook")
+module.exports.getAll = () =>{
+    
+}
+
+module.exports.add = () =>{
+
+}
+
+module.exports.update = () =>{
+
+}
+
+module.exports.delete = () =>{
+
+}
+
+module.exports.deleteAll = () =>{
+
 }

@@ -9,7 +9,7 @@ const bookSchema = new mongoose.Schema(
     SoQuyen: { type: Number, required: true },
     NamXuatBan: { type: Date, required: true },
     TacGia: { type: String },
-    MaNXB: { type: mongoose.Schema.ObjectId, ref: "publisherSchema", required: true},
+    MaNXB: { type: mongoose.Schema.Types.ObjectId, ref: "publisherSchema", required: true},
     image: { type: String },
     SoLuongDaMuon: { type: Number, required: true, default: 0 },
     //them thuoc tinh SoLuongDaMuon

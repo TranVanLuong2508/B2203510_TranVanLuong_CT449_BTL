@@ -3,82 +3,55 @@ const publisherModel = require('../models/publisher.model')
 module.exports = class publisherService {
 
     async add(data) {
-        try {
+
             const newPublisher = new publisherModel(data)
-            await newPublisher.save()
-            return {
-                statusCode: 200,
-                message: "Thêm Nhà Xuất Bản thành công !",
-                publisher: newPublisher
+            const isValid = await publisherModel.exists({TenNXB : data.TenNXB})
+            const isMaNXBDuplicated = await publisherModel.exists({ MaNXB: data.MaNXB });
+
+            if(isMaNXBDuplicated){
+                return { 
+                    message: "Mã nhà xuất bản không được trùng lặp!",
+                }
             }
-        } catch (error) {
-            return { message:"Thêm Nhà xuất bản không thành công !",
-                     statusCode: 500,
+
+            if(isValid) {
+                return {
+                    message: "Nhà xuất bản đã tồn tại !",
+                }
             }
-        }
+                const result = await newPublisher.save()
+                return {
+                    result,
+                    message:'Publisher was updated successfully !'
+                }
     }
 
-    async getAll() {
-        try {
-            const publishers = await publisherModel.find();
-            return {
-                message: "Lấy thông tin tất cả Nhà xuất bản thành công !",
-                statusCode:200,
-                publisher: publishers
-            }
-        } catch (error) {
-            return {
-                message: 'Lấy thông tin thất bại !',
-                statusCode: 500
-            }
-        }
-    } 
-    
-    async update(data) {
-        try {
-            const updatePublisher = await publisherModel.findOneAndUpdate(
-                {MaNXB: data.MaNXB},
-                {TenNXB: data.TenNXB, DiaChi: data.DiaChi },
-                {new: true}
-            )
 
-            return {
-                publisher: updatePublisher,
-                statusCode: 200,
-                message: "Cập nhật thông tin Nhà xuất bản thành công !"
-            }
-        } catch (error) {
-            return {
-                statusCode: 500,
-                message: 'Cập nhật không thành công !'
-            }
-        }
+    async find(condition) {
+            const publishers = await publisherModel.find(condition);
+            return publishers
+    } 
+
+    async findByName(name) {
+         return await this.find({TenNXB: { $regex: new RegExp(new RegExp(name)), $options: "i"}})
+    }
+    
+    async update( manxb , data) {
+            const updatePublisher = await publisherModel.findOneAndUpdate(
+                {MaNXB: manxb},
+                { $set:{ TenNXB: data.TenNXB, DiaChi: data.DiaChi }},
+                {returnDocument: "after"}
+            )
+            return updatePublisher
     }
 
     async deleteAll() {
-        try {
-            await publisherModel.deleteAll()
-            return {
-                
-            }
-        } catch (error) {
-            
-        }
+             const result = await publisherModel.deleteMany({})
+            return result.deletedCount
     }
 
-    async deleteOne (publisherId) {
-        try {
+    async delete (publisherId) {
             const deletedPublisher = await publisherModel.findOneAndDelete({MaNXB: publisherId})
-            return {
-                publisher: deletedPublisher,
-                statusCode: 200,
-                message: 'Xóa Nhà xuất bản thành công !'
-            }
-        } catch (error) {
-            return {
-                statusCode: 500,
-                message: 'Xóa thất bại !'
-            }
-        }
+            return deletedPublisher
     }
 }
