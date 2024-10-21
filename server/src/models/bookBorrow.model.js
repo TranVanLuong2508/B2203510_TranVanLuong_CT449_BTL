@@ -10,6 +10,7 @@ const bookBorrowSchema = mongoose.Schema(
         NgayMuon: {type: Date, required: true},
         NgayTra: {type: Date, required: true},
         ChiPhi: { type: Number },
+        SoLuongMuon: { type: Number, required: true, default: 1 },
         TrangThai: { type: String, required: true, default: 'pending' }, 
         //pending / borrowed / returned / overdue / canceled 
     },
