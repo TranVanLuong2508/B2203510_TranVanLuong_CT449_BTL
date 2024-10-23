@@ -2,6 +2,7 @@ const ApiError = require('../api-error')
 const userService = require('../services/user.service')
 const staffService = require('../services/staff.service')
 
+//POST [authen/signUp]
 module.exports.signUp =  async (req, res, next ) =>{
     try {
         const data = req.body
@@ -16,6 +17,7 @@ module.exports.signUp =  async (req, res, next ) =>{
     }
 }
 
+//POST [authen/signIn]
 module.exports.signIn =  async (req, res, next) =>{
     try {
         const data = req.body
@@ -27,6 +29,7 @@ module.exports.signIn =  async (req, res, next) =>{
     }
 }
 
+//POST [authen/staffSignIn]
 module.exports.staffSignIn = async (req, res , next) =>{
     try {
         const data = req.body
@@ -38,6 +41,7 @@ module.exports.staffSignIn = async (req, res , next) =>{
     }
 }
 
+//POST [authen/staffSignUp]
 module.exports.staffSignUp = async (req, res, next) =>{
     try {
         const data = req.body
