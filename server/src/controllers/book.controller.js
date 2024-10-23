@@ -17,6 +17,7 @@ function verifyToken (req, res) {
     })
 }
 
+// [GET] [book/]
 module.exports.getAll = async (req, res, next) =>{
     try {
         const bookservice = new bookService()
@@ -28,7 +29,7 @@ module.exports.getAll = async (req, res, next) =>{
     }
 }
 
-
+// [POST] [book/add]
 module.exports.add =  async (req, res, next) =>{
     if(!req.body.TenSach) {
         return next( new ApiError(400, "Book name can not be empty!"))
@@ -46,6 +47,7 @@ module.exports.add =  async (req, res, next) =>{
     }
 }
 
+// [PATCH] [book/update/:MaSach]
 module.exports.update = async (req, res, next) =>{
     try {
         await verifyToken(req,res)
@@ -60,6 +62,7 @@ module.exports.update = async (req, res, next) =>{
     }
 }
 
+// [DELETE] [book/delete/:MaSach]
 module.exports.delete = async (req, res, next) =>{
     try {
         await verifyToken(req,res)
@@ -80,6 +83,7 @@ module.exports.delete = async (req, res, next) =>{
     }
 }
 
+// [DELETE] [book/delete/]
 module.exports.deleteAll = async (req, res,  next) =>{
     try {
         await verifyToken(req,res)
