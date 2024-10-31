@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema(
     TenSach: { type: String, required: true },
     DonGia: { type: Object, required: true },
     SoQuyen: { type: Number, required: true },
-    NamXuatBan: { type: Date, required: true },
+    NamXuatBan: { type: Number, required: true },
     TacGia: { type: String },
     MaNXB: { type: mongoose.Schema.Types.ObjectId, ref: "publisherSchema", required: true},
     image: { type: String },

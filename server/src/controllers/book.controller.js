@@ -24,6 +24,7 @@ module.exports.getAll = async (req, res, next) =>{
         const result = await bookservice.getAll()
         res.json(result)
     } catch (error) {
+        console.log(error)
         return next( new ApiError(500, "An error occurred while getAll books !")
         )
     }
@@ -43,6 +44,7 @@ module.exports.add =  async (req, res, next) =>{
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
+        console.log(error)
         return next( new ApiError(500, "An error occurred while adding book !"))
     }
 }
@@ -58,6 +60,7 @@ module.exports.update = async (req, res, next) =>{
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
+        console.log(error)
         return next( new ApiError(500, "An error occurred while updating book !"))
     }
 }
@@ -79,6 +82,7 @@ module.exports.delete = async (req, res, next) =>{
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
+        console.log(error)
         return next( new ApiError(500, "An error occurred while updating book !"))
     }
 }
@@ -96,6 +100,7 @@ module.exports.deleteAll = async (req, res,  next) =>{
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
+        console.log(error)
         return next( new ApiError(500, "An error occurred deleting all books !"))
     }
 }

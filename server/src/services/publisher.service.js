@@ -22,7 +22,7 @@ module.exports = class publisherService {
                 const result = await newPublisher.save()
                 return {
                     result,
-                    message:'Publisher was updated successfully !'
+                    message:'Publisher was added successfully !'
                 }
     }
 

@@ -6,7 +6,7 @@ const bookController = require('../../controllers/book.controller')
 router
     .get('/', bookController.getAll)
     .post('/add', bookController.add)
-    .patch('/update/:MaSach', bookController.update)
+    .patch('/update', bookController.update)
     .delete('/delete/:MaSach', bookController.delete)
     .delete('/delete', bookController.deleteAll)
 

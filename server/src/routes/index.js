@@ -5,6 +5,6 @@ const publisherRouter = require("./publisher/publisher.route")
 module.exports = (app) =>{
     app.use('/authen', authenticationRouter)
     app.use('/book', bookRouter)
-    app.use('/bookBorrow', bookBorrwRouter)
+    app.use('/borrow', bookBorrwRouter)
     app.use('/publisher', publisherRouter)
 }

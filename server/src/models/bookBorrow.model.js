@@ -3,18 +3,17 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const bookBorrowSchema = mongoose.Schema(
     {
-        MaMuonSach: {type: Number, required: true},
+        MaMuonSach: Number,
         MaDocGia: { type: mongoose.Schema.ObjectId, ref: 'userSchema', require: true },
         MaSach: { type: mongoose.Schema.ObjectId, ref: 'bookSchema', require: true },
         MaNhanVien: { type: mongoose.Schema.ObjectId, ref: 'staffSchema' },
-        NgayMuon: {type: Date, required: true},
-        NgayTra: {type: Date, required: true},
-        ChiPhi: { type: Number },
+        NgayMuon: {type: Date},
+        NgayTra: {type: Date},
         SoLuongMuon: { type: Number, required: true, default: 1 },
         TrangThai: { type: String, required: true, default: 'pending' }, 
-        //pending / borrowed / returned / overdue / canceled 
+        //pending / borrow / paid
     },
-    { timestamps: true, minimize: false },
+    { timestamps: true, minimize: false, collection:'MuonSach' },
 )
 
 bookBorrowSchema.plugin(AutoIncrement, { inc_field: "MaMuonSach", start_seq: 1000 });
