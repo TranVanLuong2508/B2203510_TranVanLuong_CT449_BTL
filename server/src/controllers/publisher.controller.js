@@ -41,14 +41,11 @@ module.exports.update = async (req, res , next) =>{
     try {
         await verifyToken(req, res) 
         const publisher = new publisherService()
-        const result = await publisher.update( req.params.MaNXB ,  req.body)
+        const result = await publisher.update( req.body)
         if(!result) {
             return next ( new ApiError(404, "Publisher not found") )
         }
-        return res.json({
-            result,
-            message: "Publisher was updated successfully !"
-        })
+        return res.json(result)
     } catch (error) {
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))
@@ -68,10 +65,7 @@ module.exports.delete =  async (req, res, next ) =>{
         if(!result) {
             return next(new ApiError (404, "Publisher not found"))
         }
-        return res.json({
-            result,
-            message: "Publisher was deleted successfully !"
-        })
+        return res.json(result)
     } catch (error) {
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))

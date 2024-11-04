@@ -5,23 +5,23 @@ module.exports = class publisherService {
     async add(data) {
 
             const newPublisher = new publisherModel(data)
-            const isValid = await publisherModel.exists({TenNXB : data.TenNXB})
-            const isMaNXBDuplicated = await publisherModel.exists({ MaNXB: data.MaNXB });
+            // const isValid = await publisherModel.exists({TenNXB : data.TenNXB})
+            // const isMaNXBDuplicated = await publisherModel.exists({ MaNXB: data.MaNXB });
 
-            if(isMaNXBDuplicated){
-                return { 
-                    message: "Mã nhà xuất bản không được trùng lặp!",
-                }
-            }
+            // if(isMaNXBDuplicated){
+            //     return { 
+            //         message: "Mã nhà xuất bản không được trùng lặp!",
+            //     }
+            // }
 
-            if(isValid) {
-                return {
-                    message: "Nhà xuất bản đã tồn tại !",
-                }
-            }
+            // if(isValid) {
+            //     return {
+            //         message: "Nhà xuất bản đã tồn tại !",
+            //     }
+            // }
                 const result = await newPublisher.save()
                 return {
-                    result,
+                    publisher: newPublisher,
                     message:'Publisher was added successfully !'
                 }
     }
@@ -29,20 +29,30 @@ module.exports = class publisherService {
 
     async find(condition) {
             const publishers = await publisherModel.find(condition);
-            return publishers
+            return {
+                publisher: publishers,
+                message:'Lấy nhà xuất bản thành công!'
+            }
     } 
 
     async findByName(name) {
-         return await this.find({TenNXB: { $regex: new RegExp(new RegExp(name)), $options: "i"}})
+         const publishers = await this.find({TenNXB: { $regex: new RegExp(new RegExp(name)), $options: "i"}})
+         return {
+            publisher: publishers,
+            message:'Lấy nhà xuất bản thành công!'
+         }
     }
     
-    async update( manxb , data) {
+    async update( data) {
             const updatePublisher = await publisherModel.findOneAndUpdate(
-                {MaNXB: manxb},
+                {MaNXB:data.MaNXB},
                 { $set:{ TenNXB: data.TenNXB, DiaChi: data.DiaChi }},
                 {returnDocument: "after"}
             )
-            return updatePublisher
+            return {
+                publisher: updatePublisher,
+                message: "Cập nhật nhà xuất bản thành công"
+            }
     }
 
     async deleteAll() {
@@ -50,8 +60,11 @@ module.exports = class publisherService {
             return result.deletedCount
     }
 
-    async delete (publisherId) {
-            const deletedPublisher = await publisherModel.findOneAndDelete({MaNXB: publisherId})
-            return deletedPublisher
+    async delete (publisherCode) {
+            const deletedPublisher = await publisherModel.findOneAndDelete({MaNXB: publisherCode})
+            return {
+                publisher: deletedPublisher,
+                message:'Xoắ nhà xuất bản thành công'
+            }
     }
 }

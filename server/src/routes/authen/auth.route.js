@@ -2,8 +2,8 @@ const express =  require("express")
 const router = express.Router()
 const authenticationController = require("../../controllers/auth.controller")
 
-router.post("/signIn", authenticationController.signIn)
-      .post("/signUp", authenticationController.signUp)
-      .post("/staffSignUp", authenticationController.staffSignUp)
-      .post("/staffSignIn", authenticationController.staffSignIn)
+router.post("/signin", authenticationController.signIn)
+      .post("/signup", authenticationController.signUp)
+      .post("/staffsignup", authenticationController.staffSignUp)
+      .post("/staffsignin", authenticationController.staffSignIn)
 module.exports = router
