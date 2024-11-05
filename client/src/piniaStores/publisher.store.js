@@ -1,11 +1,8 @@
 import {CustomAxios} from '../axios/customAxios'
 import {defineStore} from 'pinia'
-
 import { useUserStore } from './user.store'
-import { Header } from 'element-plus/es/components/table-v2/src/components'
 
 export const usePublisherStore = defineStore('publisher', {
-
     state:() => {
         return {
             publisher: [],

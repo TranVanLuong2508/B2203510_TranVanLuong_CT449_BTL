@@ -22,9 +22,9 @@ module.exports = class publisherService {
                 const result = await newPublisher.save()
                 return {
                     publisher: newPublisher,
-                    message:'Publisher was added successfully !'
+                    message:'Thêm nhà xuất bản thành công!'
                 }
-    }
+    }s
 
 
     async find(condition) {
