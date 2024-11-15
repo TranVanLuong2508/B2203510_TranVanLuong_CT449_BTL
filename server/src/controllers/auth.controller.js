@@ -13,6 +13,7 @@ module.exports.signUp =  async (req, res, next ) =>{
             message: signUpResult.message
         })
     } catch (error) {
+        console.log(error)
         return next(new ApiError(500, "An error occurred while Signing up !!!"));
     }
 }
@@ -25,6 +26,7 @@ module.exports.signIn =  async (req, res, next) =>{
         const signInResult = await user.signIn(data)
         res.status(200).json(signInResult);
     } catch (error) {
+        console.log(error)
         return next(new ApiError(500, "An error occurred while Signing in !!!"));
     }
 }
@@ -37,6 +39,7 @@ module.exports.staffSignIn = async (req, res , next) =>{
         const signInResult = await staff.signIn(data)
         res.status(200).json(signInResult);
     } catch (error) {
+        console.log(error)
         return next(new ApiError(500, "An error occurred while Signing in !!!"));
     }
 }
@@ -49,6 +52,7 @@ module.exports.staffSignUp = async (req, res, next) =>{
         const signUpResult = await staff.signUp(data)
         res.status(200).json(signUpResult)
     } catch (error) {
+        console.log(error)
         return next(new ApiError(500, "An error occurred while Signing up !!!"));
     }
 }

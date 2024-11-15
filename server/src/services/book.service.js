@@ -3,7 +3,10 @@ const bookModel = require('../models/book.model')
 module.exports = class bookService {
      async  getAll() {
         const books = await bookModel.find().populate('MaNXB')
-        return books
+        return{
+         books: books,
+         message:'Lấy sách thành công!'
+        }
      }
 
      async add(data) {
@@ -15,11 +18,14 @@ module.exports = class bookService {
 
          const newBook = new bookModel(data)
          const savedBook = await newBook.save()
-         return await savedBook.populate('MaNXB')
+         const returnBook =  await savedBook.populate('MaNXB')
+         return {
+            book: returnBook,
+            message: 'Thêm sách thành công!'
+         }
       }
       return {
          message: "Sách đã tồn tại !",
-         statusCode: 404
       }
      }
 
@@ -44,11 +50,14 @@ module.exports = class bookService {
          }
       }
        await updatedBook.populate('MaNXB')
-       return updatedBook
+       return {
+         book: updatedBook,
+         message: 'Cập nhật sách thành công!'
+       }
      }
 
-     async delete (bookId) {
-      const deletedBook = await bookModel.findOneAndDelete({MaSach: bookId})
+     async delete (bookCode) {
+      const deletedBook = await bookModel.findOneAndDelete({MaSach: bookCode})
       return deletedBook
    }
 

@@ -1,11 +1,19 @@
-<template lang="">
-    <h1>hello cac ban</h1>
-</template>
 <script>
+import { RouterLink, RouterView } from 'vue-router';
+
 export default {
-
-}
+    components: {},
+};
 </script>
-<style lang="">
 
+<template>
+    <div id="app">
+        <RouterView />
+    </div>
+</template>
+
+<style lang="css">
+#app {
+    position: relative;
+}
 </style>

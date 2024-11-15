@@ -7,3 +7,7 @@
   border: 0;
   font-size: 100%;
 }
+
+.BookItem .title a {
+  text-decoration: none;
+}

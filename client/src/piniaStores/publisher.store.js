@@ -20,8 +20,8 @@ export const usePublisherStore = defineStore('publisher', {
                     return res.data.message
                 })
                 .catch((error) =>{
-                    console.log(error.response.data)
-                    return error.response.data
+                    console.log(error)
+                    return error
                 })
         },
          async add(data) {
@@ -33,8 +33,8 @@ export const usePublisherStore = defineStore('publisher', {
                     return res.data.message
                 })
                 .catch((error) =>{
-                    console.log(error.response.data)
-                    return error.response.data
+                    console.log(error)
+                    return error
                 })
         },
         async update(data) {
@@ -50,28 +50,27 @@ export const usePublisherStore = defineStore('publisher', {
                     return res.data.message
                 })
                 .catch((error) =>{
-                    console.log(error.response.data)
-                    return error.response.data
+                    console.log(error)
+                    return error
                 })
         },
-        async delete(publisherCode) {
+        async delete(MaNXB) {
             const token = useUserStore().token;
-            return await CustomAxios.delete(`publisher/delete/${publisherCode}`, { headers: { Authorization: token } })
+            return await CustomAxios.delete(`publisher/delete/${MaNXB}`, { headers: { Authorization: token } })
                 .then((res) => {
-                    this.publisher = this.publisher.filter((item) => item.MaNXB != publisherCode);
-                    console.log(this.NXB.filter((item) => item.MaNXB != publisherCode));
+                    this.publisher = this.publisher.filter((item) => item.MaNXB != MaNXB);
                     return res.data.message;
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
-                    return error.response.data;
+                    console.log(error);
+                    return error;
                 });
         },
 
     },
     getters: {
         getPublisher(state) {
-            return (publisherCode) => state.publisher.find((item) => item.MaNXB == publisherCode);
+            return (MaNXB) => state.publisher.find((item) => item.MaNXB == MaNXB);
         },
     }
 })

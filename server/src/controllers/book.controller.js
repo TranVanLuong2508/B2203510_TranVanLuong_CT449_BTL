@@ -17,7 +17,7 @@ function verifyToken (req, res) {
     })
 }
 
-// [GET] [book/]
+// [GET] [/book]
 module.exports.getAll = async (req, res, next) =>{
     try {
         const bookservice = new bookService()
@@ -30,10 +30,10 @@ module.exports.getAll = async (req, res, next) =>{
     }
 }
 
-// [POST] [book/add]
+// [POST] [/book/add]
 module.exports.add =  async (req, res, next) =>{
     if(!req.body.TenSach) {
-        return next( new ApiError(400, "Book name can not be empty!"))
+        return next( new ApiError(400, "Tên sách không được để trống!"))
     }
     try {
         await verifyToken(req, res) 
@@ -41,15 +41,15 @@ module.exports.add =  async (req, res, next) =>{
         const result = await bookservice.add(req.body)
         res.json(result)
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
-        console.log(error)
         return next( new ApiError(500, "An error occurred while adding book !"))
     }
 }
 
-// [PATCH] [book/update/:MaSach]
+// [PATCH] [/book/update/:MaSach]
 module.exports.update = async (req, res, next) =>{
     try {
         await verifyToken(req,res)
@@ -57,32 +57,32 @@ module.exports.update = async (req, res, next) =>{
         const result =  await bookservice.update(req.body)
         res.json(result)
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
-        console.log(error)
         return next( new ApiError(500, "An error occurred while updating book !"))
     }
 }
 
-// [DELETE] [book/delete/:MaSach]
+// [DELETE] [/book/delete/:MaSach]
 module.exports.delete = async (req, res, next) =>{
     try {
         await verifyToken(req,res)
         const bookservice = new bookService()
         const result =await  bookservice.delete(req.params.MaSach)
         if(!result) {
-            return next ( new ApiError (404, "Book not found !"))
+            return next ( new ApiError (404, "Không tìm thấy sách!"))
         }
         return res.json({
             result,
-            message:"Book was deleted successfully !"
+            message:"Xóa sách thành công!"
         })
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
-        console.log(error)
         return next( new ApiError(500, "An error occurred while updating book !"))
     }
 }
@@ -94,13 +94,13 @@ module.exports.deleteAll = async (req, res,  next) =>{
         const bookservice = new bookService()
         const deletedCount = await bookservice.deleteAll()
         res.json({
-            message: `${deletedCount} books were deleted successfully !`
+            message: `${deletedCount} sách được xóa thành công!`
         })
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next( new ApiError(401,error))
         }
-        console.log(error)
         return next( new ApiError(500, "An error occurred deleting all books !"))
     }
 }

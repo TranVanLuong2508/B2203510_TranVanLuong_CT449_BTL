@@ -8,7 +8,10 @@ module.exports = class bookBorrowService {
                                                 .populate('MaSach')
                                                 .populate('MaNhanVien',["HoTenNV", "ChucVu", "SoDienThoai"])
                                                 .populate('MaDocGia', ['HoLot', 'Ten', 'NgaySinh', 'GioiTinh', 'DiaChi', 'SoDienThoai'])
-        return borrowList
+        return {
+            borrows: borrowList,
+            message:"Lấy thông tin mượn sách thành công!"
+        }
     }
     
     async deleteBorrowForAdmin ( borrowId) {
@@ -19,7 +22,10 @@ module.exports = class bookBorrowService {
                 await bookModel.findByIdAndUpdate(borrow.MaSach,{$set: {SoLuongDaMuon: book.SoLuongDaMuon - borrow.SoLuongMuon}})
             }
         }
-        return borrow
+        return {
+            borrow: borrow,
+            message: "Xóa mượn sách thành công!"
+        }
     }
 
      async updateBorrowForAdmin ( staffId, updateData) {
@@ -38,23 +44,29 @@ module.exports = class bookBorrowService {
                                                     .populate('MaSach')
                                                     .populate('MaNhanVien',["HoTenNV", "ChucVu", "SoDienThoai"])
                                                     .populate('MaDocGia', ['HoLot', 'Ten', 'NgaySinh', 'GioiTinh', 'DiaChi', 'SoDienThoai'])
-            return borrowDetail 
+            return{
+                borrow: borrowDetail,
+                message: "Cập nhật thành công!"
+            } 
          }
 
          else if( updateData.TrangThai == 'paid') {
             const borrow = await bookBorrowModel.findOne({_id: updateData._id})
-            const book = await bookModel.findOne({_id: updateData.MaSach}) //ma sach o day la ID
+            const book = await bookModel.findOne({_id: borrow.MaSach}) //ma sach o day la ID
             const returnDay = Date.now()
             borrow.TrangThai = updateData.TrangThai
-            borrow.MaNhanVien = updateData.MaNhanVien
+            borrow.MaNhanVien = staffId
             borrow.NgayTra = returnDay
             await borrow.save()
-            await bookModel.findByIdAndUpdate(updateData.MaSach,{ $set: {SoLuongDaMuon: book.SoLuongDaMuon - borrow.SoLuongMuon}})
+            await bookModel.findByIdAndUpdate(borrow.MaSach,{ $set: {SoLuongDaMuon: book.SoLuongDaMuon - borrow.SoLuongMuon}})
             const savedBorrow = await bookBorrowModel.findOne({_id: updateData._id})
                                                     .populate('MaSach')
                                                     .populate('MaNhanVien',["HoTenNV", "ChucVu", "SoDienThoai"])
                                                     .populate('MaDocGia', ['HoLot', 'Ten', 'NgaySinh', 'GioiTinh', 'DiaChi', 'SoDienThoai'])
-           return savedBorrow
+           return {
+            borrow: savedBorrow,
+            message: "Cập nhật thành công!"
+           }
          }
     }
 
@@ -62,7 +74,10 @@ module.exports = class bookBorrowService {
 
     async getAllForUser(userId) {
         const borrowList = await bookBorrowModel.find({MaDocGia: userId}).populate('MaSach')
-        return borrowList
+        return {
+            borrows: borrowList,
+            message: "Lấy dữ liệu mượn sách thành công!"
+        }
     }
 
     async deleteBorrowForUser(idBorrow , userId) {
@@ -70,15 +85,22 @@ module.exports = class bookBorrowService {
         if(deletedBorrow) {
             const book = await bookModel.findById(deletedBorrow.MaSach)
             await bookModel.findByIdAndUpdate(deletedBorrow.MaSach, {$set: {SoLuongDaMuon: book.SoLuongDaMuon -  deletedBorrow.SoLuongMuon}})
-            return deletedBorrow
+            return {
+                borrow: deletedBorrow,
+                message: "Hủy mượn sách thành công!"
+            }
         }
         return {
             message:"Chỉ xóa được khi chưa nhận sách !"
         }
     }
 
-    async addBorrow( data ) {
-        const newBorrow = new bookBorrowModel(data)
+    async addBorrow( data, userId ) {
+        const newBorrow = new bookBorrowModel({
+            MaDocGia: userId,
+            MaSach: data.MaSach,
+            SoLuongMuon:data.SoLuongMuon //
+        })
         await newBorrow.save()
         if (newBorrow){
             //update so luong sach da muon
@@ -86,6 +108,9 @@ module.exports = class bookBorrowService {
             await bookModel.findByIdAndUpdate(data.MaSach,{ $set: {SoLuongDaMuon: book.SoLuongDaMuon + newBorrow.SoLuongMuon}})
             console.log(book.TenSach)
         }
-        return newBorrow
+        return{
+            borrow: newBorrow,
+            message: "Mượn sách thành công!"
+        }
     }
 } 

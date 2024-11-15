@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema(
   {
     MaSach: Number,
     TenSach: { type: String, required: true },
-    DonGia: { type: Object, required: true },
+    DonGia: { type: String, required: true },
     SoQuyen: { type: Number, required: true },
     NamXuatBan: { type: Number, required: true },
     TacGia: { type: String },

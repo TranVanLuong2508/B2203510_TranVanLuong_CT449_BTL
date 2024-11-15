@@ -19,7 +19,7 @@ function verifyToken (req, res) {
 // [POST] [publisher/add]
 module.exports.add =  async (req, res, next ) =>{
     if(!req.body?.TenNXB) {
-        return next ( new ApiError(400, "Publisher name can not be not empty !"))
+        return next ( new ApiError(400, "Tên nhà xuất bản không được để trống!"))
     }
     try {
         await verifyToken(req, res)
@@ -28,6 +28,7 @@ module.exports.add =  async (req, res, next ) =>{
         res.json(result)
 
     } catch (error) {
+        console.log(error)
         if (error == 'Unauthorized !'){
             return next( new ApiError(401, error))
         }
@@ -43,10 +44,11 @@ module.exports.update = async (req, res , next) =>{
         const publisher = new publisherService()
         const result = await publisher.update( req.body)
         if(!result) {
-            return next ( new ApiError(404, "Publisher not found") )
+            return next ( new ApiError(404, "Không tìm thấy nhà xuất bản!") )
         }
         return res.json(result)
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))
         } else {
@@ -63,10 +65,11 @@ module.exports.delete =  async (req, res, next ) =>{
         const publisher = new publisherService()
         const result = await publisher.delete(req.params.MaNXB)
         if(!result) {
-            return next(new ApiError (404, "Publisher not found"))
+            return next(new ApiError (404, "Không tìm thấy nhà xuất bản!"))
         }
         return res.json(result)
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))
         } else {
@@ -89,6 +92,7 @@ module.exports.getAll = async ( req, res, next) =>{
             res.json(result)
         }
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))
         } else {
@@ -104,9 +108,10 @@ module.exports.deleteAll = async ( req, res, next) =>{
         const publisher = new publisherService()
         const deleteCount = await publisher.deleteAll()
         res.json({
-            message: `${deleteCount} Publisher were deleted successfully !!`
+            message: `${deleteCount} Nhà xuất bản được xóa thành công!`
         })
     } catch (error) {
+        console.log(error)
         if(error == 'Unauthorized !') {
             return next ( new ApiError(401, error))
         } else {

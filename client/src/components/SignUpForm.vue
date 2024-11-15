@@ -1,0 +1,103 @@
+<template>
+    <div class="container">
+        <div class="loginContainer">
+            <div class="loginBox">
+                <div>
+                    <img src="../assets/img/logo.png" class="logo" />
+                </div>
+                <div class="flex gap-1 m-4">
+                    <input type="text" class="form-control mt-4" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Số điện thoại" v-model="SoDienThoai" />
+                    <input type="password" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu" v-model="MatKhau" />
+                    <input type="password" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu xác thực" v-model="MatKhau2" />
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Họ" v-model="HoLot" />
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Tên" v-model="Ten" />
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Giới tính" v-model="GioiTinh" />
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Địa chỉ" v-model="DiaChi" />
+                </div>
+                <button type="button" class="btn btn-primary mt-2" @click="submit">Đăng ký</button>
+                <span class="mt-4">Nếu đã có tài khoản? <router-link to="/login"><span>Đăng
+                            nhập</span></router-link></span>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import { useUserStore } from '@/piniaStores/user.store';
+import { ElMessage } from 'element-plus';
+export default {
+    data() {
+        return {
+            HoLot: '',
+            Ten: '',
+            GioiTinh: '',
+            DiaChi: '',
+            SoDienThoai: '',
+            MatKhau: '',
+            MatKhau2: '',
+            message: '',
+        }
+    },
+
+    methods: {
+        async submit() {
+            if (
+                this.MatKhau == this.MatKhau2 &&
+                this.MatKhau &&
+                this.GioiTinh &&
+                this.DiaChi &&
+                this.HoLot &&
+                this.Ten &&
+                this.SoDienThoai
+            ) {
+                this.message = await useUserStore().SignUp({
+                    HoLot: this.HoLot,
+                    Ten: this.Ten,
+                    GioiTinh: this.GioiTinh,
+                    DiaChi: this.DiaChi,
+                    SoDienThoai: this.SoDienThoai,
+                    MatKhau: this.MatKhau,
+                })
+            } else {
+                this.message = 'Mật khẩu xác thực không khớp!'
+            }
+            ElMessage(this.message)
+        }
+    }
+}
+</script>
+<style>
+.container .loginContainer {
+    min-width: 800px;
+    min-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container .loginContainer .loginBox {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+        rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 32px 16px;
+    border-radius: 4px;
+}
+
+.container .loginContainer .loginBox .logo {
+    width: 80px;
+}
+
+.container .loginContainer .loginBox .input {
+    /* Bạn có thể thêm style vào đây nếu cần */
+}
+</style>

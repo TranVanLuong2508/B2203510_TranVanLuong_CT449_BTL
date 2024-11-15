@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((req, res, next) => {
-  return next(new ApiError("400", "Resource not found"));
+  return next(new ApiError(400, "Resource not found"));
 });
 
 app.use((error, req, res, next) => {
