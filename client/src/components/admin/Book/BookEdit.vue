@@ -30,6 +30,7 @@ export default {
         async submit(data) {
             const result = await useBookStore().update(data);
             ElMessage(result);
+            this.$router.push('/manager/book')
         },
     },
 }

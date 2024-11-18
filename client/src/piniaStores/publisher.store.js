@@ -12,7 +12,7 @@ export const usePublisherStore = defineStore('publisher', {
     actions: {
         async getAll() {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return await CustomAxios.get('/publisher',{headers: { Authorization: token}})
                 .then((res) => {
                     this.publisher = [...this.publisher, ...res.data.publisher]
@@ -26,7 +26,7 @@ export const usePublisherStore = defineStore('publisher', {
         },
          async add(data) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return await CustomAxios.post('/publisher/add', data, {headers: {Authorization: token}})
                 .then((res) =>{
                     this.publisher.push(res.data.publisher)
@@ -39,7 +39,7 @@ export const usePublisherStore = defineStore('publisher', {
         },
         async update(data) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return await CustomAxios.patch(`publisher/update/${data.MaNXB}`, data, {headers: {Authorization: token}})
                 .then((res) =>{
                     this.publisher.forEach((nxb) => {
@@ -55,7 +55,7 @@ export const usePublisherStore = defineStore('publisher', {
                 })
         },
         async delete(MaNXB) {
-            const token = useUserStore().token;
+            const token = useUserStore().staffToken;
             return await CustomAxios.delete(`publisher/delete/${MaNXB}`, { headers: { Authorization: token } })
                 .then((res) => {
                     this.publisher = this.publisher.filter((item) => item.MaNXB != MaNXB);

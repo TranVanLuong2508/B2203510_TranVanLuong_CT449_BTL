@@ -70,7 +70,7 @@ module.exports.deleteBorrowForUser = async (req, res, next) =>{
         const borrowId = req.params.borrowId
         const user =  await verifyTokenForUser(req, res)
         const borrowService = new bookBorrowService()
-        const result = await borrowService.deleteBorrowForUser(borrowId, user._id)
+        const result = await borrowService.deleteBorrowForUser(borrowId)
         if(result) {
             res.json(result)
         }

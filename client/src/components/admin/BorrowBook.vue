@@ -33,9 +33,7 @@
             <el-table-column label="Mã mượn sách" prop="MaMuonSach"></el-table-column>
             <el-table-column label="Tên Sách">
                 <template #default="scope">
-                    <router-link :to="`/book/${scope.row.MaSach.MaSach}`">
-                        {{ scope.row.MaSach.TenSach }}
-                    </router-link>
+                    {{ scope.row.MaSach.TenSach }}
                 </template>
             </el-table-column>
             <el-table-column label="Tên người mượn">
@@ -45,7 +43,7 @@
             </el-table-column>
             <el-table-column label="Trạng thái" prop="TrangThai">
                 <template #default="scope">
-                    <el-select class="w-100" v-model="scope.row.TrangThai" placeholder="Chọn nhà xuất bản" size="large"
+                    <el-select class="w-100" v-model="scope.row.TrangThai" placeholder="Trạng thái" size="large"
                         style="width: 240px">
                         <el-option label="Đang chờ nhận sách" value="pending" />
                         <el-option label="Đã lấy sách" value="borrow" />

@@ -21,6 +21,7 @@ export default {
         async addBook(data) {
             let result = await useBookStore().add(data)
             ElMessage(result)
+            this.$router.push('/manager/book')
         }
     }
 }

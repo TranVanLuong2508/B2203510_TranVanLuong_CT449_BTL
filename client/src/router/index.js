@@ -78,14 +78,14 @@ const routes =[
         path: '/manager',
         name: 'manager',
         component: ManagerView,
-        beforeEnter(to, from, next) {
-            const userStore = useUserStore()
-            if(userStore.token  && userStore.userInfor.ChucVu){
-                next()
-            } else {
-                next({name:'loginmanager'})
-            }
-        },
+        // beforeEnter(to, from, next) {
+        //     const userStore = useUserStore()
+        //     if(userStore.staffToken){
+        //         next()
+        //     } else {
+        //         next({name:'loginmanager'})
+        //     }
+        // },
         children: [
             {
                 path:'',

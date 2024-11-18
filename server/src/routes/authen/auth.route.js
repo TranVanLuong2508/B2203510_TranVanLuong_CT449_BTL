@@ -6,4 +6,5 @@ router.post("/signin", authenticationController.signIn)
       .post("/signup", authenticationController.signUp)
       .post("/staffsignup", authenticationController.staffSignUp)
       .post("/staffsignin", authenticationController.staffSignIn)
+      .post("/logout",authenticationController.signOut)
 module.exports = router

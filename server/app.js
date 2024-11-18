@@ -14,10 +14,6 @@ app.use(express.json());
 
 route(app);
 
-app.get("/", (req, res) => {
-  res.send("hello");
-});
-
 app.use((req, res, next) => {
   return next(new ApiError(400, "Resource not found"));
 });

@@ -50,7 +50,7 @@ module.exports = class staffService {
             const { MatKhau, ...staffInfor } = staffCheck._doc
     
             //jwt.sign(payload, secretOrPrivateKey, [options])
-            const token = jwt.sign(staffInfor, process.env.JWT_SECRET || 'B2203510_CT449_HKI2024-2025', { expiresIn:'24h'})
+            const token = jwt.sign(staffInfor, process.env.JWT_SECRET || 'B2203510_CT449_HKI2024-2025', { expiresIn:'1h'})
     
             return {
               data:{ staff: staffInfor, token},

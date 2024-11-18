@@ -80,8 +80,8 @@ module.exports = class bookBorrowService {
         }
     }
 
-    async deleteBorrowForUser(idBorrow , userId) {
-        const deletedBorrow = await bookBorrowModel.findOneAndDelete({_id: idBorrow, MaDocGia: userId, TrangThai: 'pending'})
+    async deleteBorrowForUser(idBorrow) {
+        const deletedBorrow = await bookBorrowModel.findOneAndDelete({_id: idBorrow, TrangThai: 'pending'})
         if(deletedBorrow) {
             const book = await bookModel.findById(deletedBorrow.MaSach)
             await bookModel.findByIdAndUpdate(deletedBorrow.MaSach, {$set: {SoLuongDaMuon: book.SoLuongDaMuon -  deletedBorrow.SoLuongMuon}})

@@ -27,7 +27,7 @@ export const useBookStore = defineStore('book', {
 
         async add(data) {
             const userStore = useUserStore()
-            const token = userStore.token           
+            const token = userStore.staffToken           
             return await CustomAxios.post('/book/add', data, {headers:{Authorization: token}})
                   .then((res) =>{
                     this.books.push(res.data.book)
@@ -41,7 +41,7 @@ export const useBookStore = defineStore('book', {
 
         async update(data) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return await CustomAxios.patch('/book//update', data, { headers: { Authorization: token}})
                   .then((res) => {
                     console.log(res.data.books)
@@ -62,7 +62,7 @@ export const useBookStore = defineStore('book', {
 
         async delete(bookCode) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return await CustomAxios.delete(`/book/delete/${bookCode}`, { headers: { Authorization: token}})
                    .then((res)=>{
                     this.books = this.books.filter((book) => book.MaSach != bookCode )

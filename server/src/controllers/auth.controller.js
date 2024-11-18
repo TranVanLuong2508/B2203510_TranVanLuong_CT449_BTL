@@ -56,3 +56,16 @@ module.exports.staffSignUp = async (req, res, next) =>{
         return next(new ApiError(500, "An error occurred while Signing up !!!"));
     }
 }
+
+
+module.exports.signOut = async (req, res, next) => {
+    try {
+        localStorage.removeItem('token')
+        res.status(200).json({
+            message: "Đăng xuất thành công!"
+        });
+    } catch (error) {
+        console.log(error);
+        return next(new ApiError(500, "An error occurred while logout!!!"));
+    }
+};

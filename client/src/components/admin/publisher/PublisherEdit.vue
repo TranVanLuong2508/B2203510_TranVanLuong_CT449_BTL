@@ -24,6 +24,7 @@ export default {
         async submit(data) {
             const result = await usePublisherStore().update(data)
             ElMessage(result)
+            this.$router.push('/manager/NXB')
         }
     }
 }

@@ -6,18 +6,23 @@
                     <img src="../assets/img/logo.png" class="logo" />
                 </div>
                 <div class="flex gap-1 m-4">
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Họ" v-model="HoLot" />
+                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Tên" v-model="Ten" />
                     <input type="text" class="form-control mt-4" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Số điện thoại" v-model="SoDienThoai" />
                     <input type="password" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu" v-model="MatKhau" />
                     <input type="password" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu xác thực" v-model="MatKhau2" />
-                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="Họ" v-model="HoLot" />
-                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="Tên" v-model="Ten" />
-                    <input type="text" class="form-control mt-3" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="Giới tính" v-model="GioiTinh" />
+                    <!-- <input type="text" class="form-control mt-3" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" placeholder="Giới tính" v-model="GioiTinh" /> -->
+                    <select class="form-control mt-3" v-model="GioiTinh" aria-label="Chọn giới tính">
+                        <option value="" disabled selected>Chọn giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
                     <input type="text" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Địa chỉ" v-model="DiaChi" />
                 </div>
@@ -68,6 +73,9 @@ export default {
                 this.message = 'Mật khẩu xác thực không khớp!'
             }
             ElMessage(this.message)
+            if (this.message === 'Đăng ký thành công! Hãy đăng nhập vào tài khoản của bạn') {
+                this.$router.push('/login')
+            }
         }
     }
 }
@@ -97,7 +105,5 @@ export default {
     width: 80px;
 }
 
-.container .loginContainer .loginBox .input {
-    /* Bạn có thể thêm style vào đây nếu cần */
-}
+.container .loginContainer .loginBox .input {}
 </style>

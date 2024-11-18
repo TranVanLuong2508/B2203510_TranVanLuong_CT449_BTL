@@ -20,7 +20,7 @@ export default {
                     SoDienThoai: data.SoDienThoai,
                     MatKhau: data.MatKhau,
                 });
-                if (userStore.token) {
+                if (userStore.staffToken) {
                     this.$router.push({ name: "manager-borrow" });
                 }
                 ElMessage(result);

@@ -23,7 +23,7 @@ export default {
 
     methods: {
         SignOut() {
-            useUserStore().SignOut()
+            useUserStore().staffSignOut()
             ElMessage('Đăng xuất thành công!')
             this.$router.push({
                 path: '/'

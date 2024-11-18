@@ -14,7 +14,9 @@ export const useBookBorrowStore = defineStore('borrow', {
     actions: {
          getAllForAdmin () {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
+            if (!token) {
+              console.log("Token không hợp lệ hoặc hết hạn");}
             return  CustomAxios.get('/borrow/admin', { headers: { Authorization: token }})
                    .then((res) =>{
                     this.borrowAdmin = [...this.borrows, ...res.data.borrows]
@@ -56,7 +58,7 @@ export const useBookBorrowStore = defineStore('borrow', {
 
          updateBorrowForAdmin (data) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return  CustomAxios.patch('/borrow/admin/update', data, { headers: { Authorization: token}})
                   .then((res) =>{
                     this.borrowAdmin = this.borrowAdmin.map((item) => {
@@ -78,7 +80,7 @@ export const useBookBorrowStore = defineStore('borrow', {
             const token = userStore.token
             return  CustomAxios.delete(`/borrow/user/delete/${borrowId}`,{ headers: { Authorization: token}})
                   .then((res) =>{
-                    this.borrowUser = this.borrows.filter((item) => item._id !== borrowId)
+                    this.borrows = this.borrows.filter((item) => item._id !== borrowId)
                     return res.data.message
                   })
                   .catch((error) => {
@@ -89,7 +91,7 @@ export const useBookBorrowStore = defineStore('borrow', {
 
          deleteBorrowForAdmin (borrowId) {
             const userStore = useUserStore()
-            const token = userStore.token
+            const token = userStore.staffToken
             return  CustomAxios.delete(`/borrow/admin/delete/${borrowId}`,{ headers: { Authorization: token}})
                   .then((res) =>{
                     this.borrowAdmin = this.borrowAdmin.filter((item) => item._id !== borrowId)
