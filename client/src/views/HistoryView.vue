@@ -23,7 +23,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="MaMuonSach" label="Mã mượn" width="180" />
-            <el-table-column prop="MaSach.TenSach" label="Tên sách" width="180">
+            <el-table-column label="Tên sách" width="180">
                 <template #default="scope">
                     <router-link :to="`/book/${scope.row.MaSach.MaSach}`">
                         {{ scope.row.MaSach.TenSach }}
@@ -40,6 +40,7 @@
                     {{ scope.row?.NgayTra && new Date(scope.row?.NgayTra).toLocaleString() }}
                 </template>
             </el-table-column> -->
+            <el-table-column prop="SoLuongMuon" label="Số lượng" width="180" />
             <el-table-column prop="TrangThai" label="Trạng thái">
                 <template #default="scope">
                     {{ this.convertToVN(scope.row.TrangThai) }}
@@ -72,7 +73,7 @@ export default {
         Header,
     },
 
-    setup() {
+    mounted() {
         const borrow = useBookBorrowStore();
         if (!borrow.fetching) {
             borrow.getAllForUser();

@@ -19,8 +19,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column type="index" label="STT"> </el-table-column>
-                <el-table-column label="Tên NXB" prop="TenNXB"> </el-table-column>
-                <el-table-column label="Tên NXB" prop="Diachi"> </el-table-column>
+                <el-table-column label="Tên nhà xuất bản" prop="TenNXB"> </el-table-column>
+                <el-table-column label="Địa chỉ nhà xuất bản" prop="DiaChi"> </el-table-column>
                 <el-table-column align="right">
                     <template #header>
                         <el-input v-model="searchText" size="small" placeholder="Nhập tên nhà xuất bản để tìm kiếm" />
@@ -40,7 +40,7 @@ import { usePublisherStore } from '@/piniaStores/publisher.store';
 import { mapStores } from 'pinia';
 export default {
 
-    setup() {
+    mounted() {
         const publisherStore = usePublisherStore()
         if (!publisherStore.fetching) {
             publisherStore.getAll()

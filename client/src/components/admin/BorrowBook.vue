@@ -73,7 +73,7 @@ import { useBookBorrowStore } from '@/piniaStores/bookBorrow.store';
 import { ElMessage, ElButton, ElInput } from 'element-plus';
 import { mapStores } from 'pinia';
 export default {
-    setup() {
+    mounted() {
         const borrow = useBookBorrowStore()
         if (!borrow.fetchAdmin) {
             borrow.getAllForAdmin()

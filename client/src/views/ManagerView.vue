@@ -33,10 +33,11 @@ export default {
     },
 
     mounted() {
-        if (!usePublisherStore().fetching) {
-            console.log('Fetching')
-            usePublisherStore().getAll()
-        }
+        // const publisherStore = usePublisherStore()
+        // if (!publisherStore.fetching) {
+        //     console.log('Fetching')
+        //     publisherStore.getAll()
+        // }
         const bookStore = useBookStore()
         if (!bookStore.fetching) {
             bookStore.getAll()
