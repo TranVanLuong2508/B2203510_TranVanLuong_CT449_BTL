@@ -1,4 +1,4 @@
-import {CustomAxios} from '../axios/customAxios'
+import {axiosInstance} from '../axios/axiosInstance'
 import {defineStore} from 'pinia'
 
 export const useUserStore = defineStore('user', {
@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
     actions: {
         //for user
       SignUp:  async function(data) {
-        return await CustomAxios.post('/authen/signup', data)
+        return await axiosInstance.post('/authen/signup', data)
             .then((res) => {return res.data.message})
             .catch((error) => {
                 console.log(error)
@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', {
             })
       },
       SignIn:  async function(data) {
-        return await CustomAxios.post('/authen/signin', data)
+        return await axiosInstance.post('/authen/signin', data)
             .then((res) => {
                 this.token = res.data.data?.token
                 localStorage.setItem('token', this.token)
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', {
       },
       //for staff
       staffSignIn:  async function(data) {
-        return await CustomAxios.post('/authen/staffsignin', data)
+        return await axiosInstance.post('/authen/staffsignin', data)
             .then((res) => {
                 this.staffToken = res.data.data?.token
                 localStorage.setItem('staffToken', this.staffToken)

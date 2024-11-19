@@ -9,11 +9,18 @@
 import Header from '@/components/Header.vue';
 import { ElButton } from 'element-plus';
 import BookList from '@/components/Home/BookList.vue';
+import { useBookStore } from '@/piniaStores/book.store';
 export default {
     components: {
         ElButton,
         BookList,
         Header
+    },
+    mounted() {
+        const bookStore = useBookStore()
+        if (!bookStore.fetching) {
+            bookStore.getAll()
+        }
     }
 }
 </script>

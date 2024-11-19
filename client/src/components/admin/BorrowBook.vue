@@ -33,7 +33,9 @@
             <el-table-column label="Mã mượn sách" prop="MaMuonSach"></el-table-column>
             <el-table-column label="Tên Sách">
                 <template #default="scope">
-                    {{ scope.row.MaSach.TenSach }}
+                    <router-link :to="`/book/${scope.row.MaSach.MaSach}`">
+                        {{ scope.row.MaSach.TenSach }}
+                    </router-link>
                 </template>
             </el-table-column>
             <el-table-column label="Tên người mượn">

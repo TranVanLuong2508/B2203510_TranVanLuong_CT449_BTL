@@ -27,9 +27,12 @@
                 <el-table-column label="Mã sách" prop="MaSach" />
                 <el-table-column label="Tên Sách" prop="TenSach">
                     <template #default="scope">
-                        <router-link to="/book">
+                        <router-link :to="`/book/${scope.row.MaSach}`">
                             {{ scope.row.TenSach }}
                         </router-link>
+                        <!-- <router-link :to="`/book/${scope.row.MaSach}`">
+                            {{ scope.row.TenSach }}
+                        </router-link> -->
                     </template>
                 </el-table-column>
                 <el-table-column label="Đơn giá">
@@ -58,6 +61,7 @@
 <script>
 import { ElButton, ElInput, ElMessage } from 'element-plus';
 import { useBookStore } from '@/piniaStores/book.store';
+import { mapStores } from 'pinia';
 export default {
     components: {
         ElInput
@@ -65,15 +69,16 @@ export default {
 
     data() {
         return {
-            books: useBookStore().books,
+            // books: useBookStore().books,
             searchText: '',
         }
     },
 
     computed: {
+        ...mapStores(useBookStore),
         filteredBooks() {
-            if (this.books) {
-                return this.books.filter((book) => book.TenSach.toLowerCase().includes(this.searchText.toLowerCase()))
+            if (this.bookStore.books) {
+                return this.bookStore.books.filter((book) => book.TenSach.toLowerCase().includes(this.searchText.toLowerCase()))
             }
             return []
         }
@@ -95,8 +100,8 @@ export default {
         },
 
         async handleDelete(MaSach) {
-            const result = await useBookStore().delete(MaSach)
-            this.books = useBookStore().books
+            const result = await this.bookStore.delete(MaSach)
+            this.books = this.bookStore.books
             ElMessage(result)
         }
     },

@@ -70,7 +70,7 @@ export default {
                     MatKhau: this.MatKhau,
                 })
             } else {
-                this.message = 'Mật khẩu xác thực không khớp!'
+                this.message = "Thông tin không hợp lệ! Vui lòng nhập lại"
             }
             ElMessage(this.message)
             if (this.message === 'Đăng ký thành công! Hãy đăng nhập vào tài khoản của bạn') {

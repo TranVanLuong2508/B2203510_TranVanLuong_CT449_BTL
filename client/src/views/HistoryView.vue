@@ -4,6 +4,24 @@
     <main class="container">
         <h1 class="text-center m-2">Lịch sử mượn sách</h1>
         <el-table :data="borrowStore.borrows" stripe style="width: 100%">
+            <el-table-column type="expand">
+                <template #default="scope">
+                    <div class="row">
+                        <div class="col-12">
+                            <p m="t-0 b-2">
+                                Ngày mượn sách:
+                                {{
+                                    scope.row?.NgayMuon && new Date(scope.row?.NgayMuon).toLocaleString()
+                                }}
+                            </p>
+                            <p m="t-0 b-2">
+                                Ngày trả:
+                                {{ scope.row?.NgayTra && new Date(scope.row?.NgayTra).toLocaleString() }}
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </el-table-column>
             <el-table-column prop="MaMuonSach" label="Mã mượn" width="180" />
             <el-table-column prop="MaSach.TenSach" label="Tên sách" width="180">
                 <template #default="scope">
@@ -12,7 +30,7 @@
                     </router-link>
                 </template>
             </el-table-column>
-            <el-table-column prop="NgayMuon" label="Ngày mượn">
+            <!-- <el-table-column prop="NgayMuon" label="Ngày mượn">
                 <template #default="scope">
                     {{ scope.row?.NgayMuon && new Date(scope.row?.NgayMuon).toLocaleString() }}
                 </template>
@@ -21,7 +39,7 @@
                 <template #default="scope">
                     {{ scope.row?.NgayTra && new Date(scope.row?.NgayTra).toLocaleString() }}
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column prop="TrangThai" label="Trạng thái">
                 <template #default="scope">
                     {{ this.convertToVN(scope.row.TrangThai) }}
@@ -43,46 +61,45 @@
     </main>
 </template>
 <script>
-import { ElButton } from 'element-plus';
-import Header from '@/components/Header.vue';
-import { mapStores } from 'pinia';
-import { useBookBorrowStore } from '@/piniaStores/bookBorrow.store';
+import { ElButton } from "element-plus";
+import Header from "@/components/Header.vue";
+import { mapStores } from "pinia";
+import { useBookBorrowStore } from "@/piniaStores/bookBorrow.store";
 export default {
-    name: 'history',
+    name: "history",
     components: {
         ElButton,
-        Header
+        Header,
     },
 
     setup() {
-        const borrow = useBookBorrowStore()
+        const borrow = useBookBorrowStore();
         if (!borrow.fetching) {
-            borrow.getAllForUser()
+            borrow.getAllForUser();
         }
     },
     computed: {
-        ...mapStores(useBookBorrowStore)
+        ...mapStores(useBookBorrowStore),
     },
     data() {
-        return {}
+        return {};
     },
     methods: {
         handleDelete(id) {
-            this.borrowStore.deleteBorrowForUser(id)
+            this.borrowStore.deleteBorrowForUser(id);
         },
         convertToVN(status) {
             switch (status) {
-                case 'pending':
-                    return "Đang chờ nhận sách"
-                case 'borrow':
-                    return "Đã lấy sách"
+                case "pending":
+                    return "Đang chờ nhận sách";
+                case "borrow":
+                    return "Đã lấy sách";
                 case "paid":
-                    return "Đã trả sách"
+                    return "Đã trả sách";
             }
-        }
-    }
-
-}
+        },
+    },
+};
 </script>
 <style>
 main .detail-container {

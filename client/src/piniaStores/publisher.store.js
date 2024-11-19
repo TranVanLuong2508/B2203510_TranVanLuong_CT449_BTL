@@ -1,4 +1,4 @@
-import {CustomAxios} from '../axios/customAxios'
+import {axiosInstance} from '../axios/axiosInstance'
 import {defineStore} from 'pinia'
 import { useUserStore } from './user.store'
 
@@ -13,7 +13,7 @@ export const usePublisherStore = defineStore('publisher', {
         async getAll() {
             const userStore = useUserStore()
             const token = userStore.staffToken
-            return await CustomAxios.get('/publisher',{headers: { Authorization: token}})
+            return await axiosInstance.get('/publisher',{headers: { Authorization: token}})
                 .then((res) => {
                     this.publisher = [...this.publisher, ...res.data.publisher]
                     this.fetching = true
@@ -27,7 +27,7 @@ export const usePublisherStore = defineStore('publisher', {
          async add(data) {
             const userStore = useUserStore()
             const token = userStore.staffToken
-            return await CustomAxios.post('/publisher/add', data, {headers: {Authorization: token}})
+            return await axiosInstance.post('/publisher/add', data, {headers: {Authorization: token}})
                 .then((res) =>{
                     this.publisher.push(res.data.publisher)
                     return res.data.message
@@ -40,7 +40,7 @@ export const usePublisherStore = defineStore('publisher', {
         async update(data) {
             const userStore = useUserStore()
             const token = userStore.staffToken
-            return await CustomAxios.patch(`publisher/update/${data.MaNXB}`, data, {headers: {Authorization: token}})
+            return await axiosInstance.patch(`publisher/update/${data.MaNXB}`, data, {headers: {Authorization: token}})
                 .then((res) =>{
                     this.publisher.forEach((nxb) => {
                         if(nxb.MaNXB == data.MaNXB) {
@@ -56,7 +56,7 @@ export const usePublisherStore = defineStore('publisher', {
         },
         async delete(MaNXB) {
             const token = useUserStore().staffToken;
-            return await CustomAxios.delete(`publisher/delete/${MaNXB}`, { headers: { Authorization: token } })
+            return await axiosInstance.delete(`publisher/delete/${MaNXB}`, { headers: { Authorization: token } })
                 .then((res) => {
                     this.publisher = this.publisher.filter((item) => item.MaNXB != MaNXB);
                     return res.data.message;

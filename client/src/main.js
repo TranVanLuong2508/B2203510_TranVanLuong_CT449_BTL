@@ -26,9 +26,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
 
-const bookStore = useBookStore()
+
 app.use(router)
-if(!bookStore.fetching) { 
-  bookStore.getAll()
-}
 app.mount('#app') 

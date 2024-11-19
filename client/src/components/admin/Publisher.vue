@@ -37,22 +37,31 @@
 <script>
 import { ElMessage, ElInput, ElButton } from 'element-plus';
 import { usePublisherStore } from '@/piniaStores/publisher.store';
+import { mapStores } from 'pinia';
 export default {
+
+    setup() {
+        const publisherStore = usePublisherStore()
+        if (!publisherStore.fetching) {
+            publisherStore.getAll()
+        }
+    },
     components: {
         ElInput
     },
 
     data() {
         return {
-            publishers: usePublisherStore().publisher,
+            // publishers: usePublisherStore().publisher,
             searchText: ''
         }
     },
 
     computed: {
+        ...mapStores(usePublisherStore),
         filteredPublisher() {
-            if (this?.publishers) {
-                return this.publishers.filter((publisher) => publisher.TenNXB.toLowerCase().includes(this.searchText.toLowerCase()))
+            if (this.publisherStore.publisher) {
+                return this.publisherStore.publisher.filter((publisher) => publisher.TenNXB.toLowerCase().includes(this.searchText.toLowerCase()))
             }
             return []
         }
@@ -78,8 +87,18 @@ export default {
             const result = await usePublisherStore().delete(MaNXB)
             ElMessage(result)
             this.publishers = usePublisherStore().publisher
-        }
-    }
+        },
+
+        // async getAll() {
+        //     const publisherStore = usePublisherStore()
+        //     await publisherStore.getAll()
+        //     this.publishers = publisherStore.publisher
+        // }
+    },
+
+    // mounted() {
+    //     this.getAll()
+    // }
 }
 </script>
 <style></style>

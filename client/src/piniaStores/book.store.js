@@ -1,4 +1,4 @@
-import {CustomAxios} from '../axios/customAxios'
+import {axiosInstance} from '../axios/axiosInstance'
 import {defineStore} from 'pinia'
 import { useUserStore } from './user.store'
 
@@ -14,7 +14,7 @@ export const useBookStore = defineStore('book', {
         async getAll() {
             // const userStore = useUserStore()
             // const token = userStore.token
-            return await CustomAxios.get('/book')
+            return await axiosInstance.get('/book')
                   .then((res) =>{
                     this.books = [...this.books, ...res.data.books]
                     this.fetching = true
@@ -28,7 +28,7 @@ export const useBookStore = defineStore('book', {
         async add(data) {
             const userStore = useUserStore()
             const token = userStore.staffToken           
-            return await CustomAxios.post('/book/add', data, {headers:{Authorization: token}})
+            return await axiosInstance.post('/book/add', data, {headers:{Authorization: token}})
                   .then((res) =>{
                     this.books.push(res.data.book)
                     return res.data.message
@@ -42,7 +42,7 @@ export const useBookStore = defineStore('book', {
         async update(data) {
             const userStore = useUserStore()
             const token = userStore.staffToken
-            return await CustomAxios.patch('/book//update', data, { headers: { Authorization: token}})
+            return await axiosInstance.patch('/book//update', data, { headers: { Authorization: token}})
                   .then((res) => {
                     console.log(res.data.books)
                     this.books = this.books.map((item) =>{
@@ -63,7 +63,7 @@ export const useBookStore = defineStore('book', {
         async delete(bookCode) {
             const userStore = useUserStore()
             const token = userStore.staffToken
-            return await CustomAxios.delete(`/book/delete/${bookCode}`, { headers: { Authorization: token}})
+            return await axiosInstance.delete(`/book/delete/${bookCode}`, { headers: { Authorization: token}})
                    .then((res)=>{
                     this.books = this.books.filter((book) => book.MaSach != bookCode )
                     return res.data.message
