@@ -51,11 +51,12 @@
             </el-table-column>
             <el-table-column align="right">
                 <template #default="scope">
-                    <el-button v-if="scope.row.TrangThai === 'pending'" size="small"
-                        @click="handleDelete(scope.row._id)"><el-icon>
-                            <span class="delete-icons">
+                    <el-button v-if="scope.row.TrangThai === 'pending'" size="small" type="danger"
+                        @click="handleDelete(scope.row._id)">Xóa</el-button>
+                    <!-- <span class="delete-icons">
                                 <DeleteFilled />
-                            </span></el-icon></el-button>
+                                <el-button size="small" type="danger" @click="handleDelete(scope.row._id)">Xóa</el-button>
+                            </span></el-icon></el-button> -->
                 </template>
             </el-table-column>
         </el-table>
@@ -102,52 +103,4 @@ export default {
     },
 };
 </script>
-<style>
-main .detail-container {
-    padding: 16px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    display: flex;
-    flex-direction: row;
-}
-
-main .detail-container .image {
-    max-width: 300px;
-}
-
-main .detail-container .detailInfor .title {
-    margin-bottom: 2px;
-}
-
-main .detail-container .detailInfor .author {
-    margin-top: 0;
-    margin-bottom: 4px;
-    color: #1d9d74;
-}
-
-main .detail-container .detailInfor .pay {
-    font-size: 26px;
-    color: #fe642e;
-    font-weight: 600;
-}
-
-main .detail-container .detailInfor .quantity span {
-    font-size: 24px;
-    font-weight: 600;
-}
-
-main .detail-container .detailInfor .borrow-container {
-    margin-top: 32px;
-}
-
-main .detail-container .detailInfor .borrow-container .borrow-quantity {
-    margin-right: 8px;
-}
-
-main .detail-container .detailInfor .title-description {
-    margin-top: 64px;
-}
-
-main .detail-container .detailInfor .detail {
-    margin: 2px;
-}
-</style>
+<style></style>

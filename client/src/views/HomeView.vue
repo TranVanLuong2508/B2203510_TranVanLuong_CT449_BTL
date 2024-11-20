@@ -1,20 +1,20 @@
 <template lang="">
-    <Header></Header>
-    <main class="container">
-        <h1 class="text-center m-2">Danh sách sách</h1>
-    </main>
+    <Header></Header>   
     <BookList></BookList>
+    <Footer></Footer>
 </template>
 <script>
 import Header from '@/components/Header.vue';
 import { ElButton } from 'element-plus';
 import BookList from '@/components/Home/BookList.vue';
 import { useBookStore } from '@/piniaStores/book.store';
+import Footer from '@/components/Footer.vue';
 export default {
     components: {
         ElButton,
         BookList,
-        Header
+        Header,
+        Footer
     },
     mounted() {
         const bookStore = useBookStore()

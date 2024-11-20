@@ -1,4 +1,4 @@
-import './assets/main.css'
+// import './assets/main.css'
 
 import { createApp } from 'vue'
 //pinia
@@ -9,10 +9,15 @@ import 'bootstrap/dist/js/bootstrap.js';
 //element plus
 import ElementPlus from'element-plus'
 import 'element-plus/dist/index.css'
+import './assets/style.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue';
 import router from './router/index.js'
 
+//import AOS
+import Aos from 'aos';
+import 'aos/dist/aos'
+import 'aos/dist/aos.css'
 const pinia = createPinia()
 const app = createApp(App)
 
@@ -25,3 +30,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.use(router)
 app.mount('#app') 
+Aos.init();

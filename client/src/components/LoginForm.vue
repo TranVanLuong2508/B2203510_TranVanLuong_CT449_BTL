@@ -2,16 +2,18 @@
     <div class="container">
         <div class="loginContainer">
             <div class="loginBox">
-                <div>
+                <div class="box-head">
                     <img src="../assets/img/logo.png" class="logo" />
+                    <p v-if="routeBookCheck() == 'loginmanager'">Đăng nhập | Quản trị viên</p>
+                    <p v-if="routeBookCheck() != 'loginmanager'">Đăng nhập | Đọc giả</p>
                 </div>
-                <div class="flex gap-1 m-4">
+                <div class="flex gap-1 m-4 infor-type">
                     <input type="text" class="form-control mt-4" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Số điện thoại" v-model="SoDienThoai" />
                     <input type="password" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu" v-model="MatKhau" />
                 </div>
-                <button type="button" class="btn btn-primary" @click="submit">Đăng nhập</button>
+                <button type="button" class="btn btn-primary button-submit" @click="submit">Đăng nhập</button>
                 <span v-if="routeBookCheck() != 'loginmanager'" class="mt-4">Nếu chưa có tài khoản? <router-link
                         to="/signup"><span>Đăng ký</span></router-link></span>
             </div>
@@ -64,7 +66,34 @@ export default {
     border-radius: 4px;
 }
 
+/* 
+.container .loginContainer .loginBox .button-submit {
+    background-color: #C5A992;
+    border: #C5A992;    
+}
+
+.container .loginContainer .loginBox .button-submit:hover {
+    background-color: #D06B18;
+} */
+
+.container .box-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container .box-head p {
+    padding-top: 40px;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
 .container .loginContainer .loginBox .logo {
     width: 80px;
+}
+
+.container .loginContainer .loginBox .infor-type {
+    margin: 0;
 }
 </style>

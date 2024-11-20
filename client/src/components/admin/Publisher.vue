@@ -1,29 +1,18 @@
 <template>
     <div class="Book">
-        <h4 class="text-center m-2">Quản lý nhà xuất bản</h4>
+        <h4 class="text-center m-2 space-text">Quản lý nhà xuất bản</h4>
         <div class="container create-btn-container d-flex justify-content-end">
-            <el-button type="primary" plain @click="navigatorToAdd">Thêm NXB mới</el-button>
+            <button type="button" class="btn btn-primary buttonAdd" @click="navigatorToAdd">Thêm nhà xuất bản
+                mới</button>
         </div>
         <div class="container table-container">
             <el-table :data="filteredPublisher" style="width: 100%">
-                <el-table-column type="expand">
-                    <template #default="scope">
-                        <div class="row">
-                            <div class="col-12" style="text-align: center">
-                                <h6>Thông tin Nhà xuất bản:</h6>
-                                <p m="t-0 b-2">Tên Nhà xuất bản: {{ scope.row?.TenNXB }}
-                                </p>
-                                <p m="t-0 b-2">Địa chỉ: {{ scope.row?.DiaChi }}</p>
-                            </div>
-                        </div>
-                    </template>
-                </el-table-column>
                 <el-table-column type="index" label="STT"> </el-table-column>
-                <el-table-column label="Tên nhà xuất bản" prop="TenNXB"> </el-table-column>
-                <el-table-column label="Địa chỉ nhà xuất bản" prop="DiaChi"> </el-table-column>
+                <el-table-column label="Tên Nhà xuất bản" prop="TenNXB"> </el-table-column>
+                <el-table-column label="Địa chỉ Nhà xuất bản" prop="DiaChi"> </el-table-column>
                 <el-table-column align="right">
                     <template #header>
-                        <el-input v-model="searchText" size="small" placeholder="Nhập tên nhà xuất bản để tìm kiếm" />
+                        <el-input v-model="searchText" size="small" placeholder="Nhập tên nhà xuất bản để tìm" />
                     </template>
                     <template #default="scope">
                         <el-button size="small" @click="navigatorToEdit(scope.row.MaNXB)">Chỉnh sửa</el-button>
@@ -88,17 +77,16 @@ export default {
             ElMessage(result)
             this.publishers = usePublisherStore().publisher
         },
-
-        // async getAll() {
-        //     const publisherStore = usePublisherStore()
-        //     await publisherStore.getAll()
-        //     this.publishers = publisherStore.publisher
-        // }
     },
 
-    // mounted() {
-    //     this.getAll()
-    // }
 }
 </script>
-<style></style>
+<style>
+.Book .space-text {
+    margin-top: 24px;
+}
+
+.Book .buttonAdd {
+    margin-bottom: 16px;
+}
+</style>

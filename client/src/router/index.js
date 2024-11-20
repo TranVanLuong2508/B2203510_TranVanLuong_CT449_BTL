@@ -25,8 +25,7 @@ import BookList from "@/components/Home/BookList.vue";
 import Header from "@/components/Header.vue";
 import LoginForm from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
-
-
+import { ElMessage } from "element-plus";
 
 const routes =[
     {
@@ -62,6 +61,7 @@ const routes =[
             if(userStore.token){
                 next()
             } else {
+                ElMessage('Vui lòng đăng nhập để xem lịch sử mượn sách!')
                 next({name:'login'})
             }
         },

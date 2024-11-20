@@ -34,7 +34,7 @@
             <el-input v-model="book.image" style="width: 300px" size="large" placeholder="Nhập Link ảnh" />
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <el-button type="primary" plain @click="submit">Lưu</el-button>
+            <button type="button" class="btn btn-primary button-submit" @click="submit">Lưu</button>
         </div>
     </div>
 </template>

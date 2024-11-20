@@ -1,9 +1,35 @@
 <template>
-    <div class="header">
-        <div class="header-box container">
-            <el-button @click="SignOut">Đăng xuất</el-button>
+    <header id="header">
+        <div class="container-fluid">
+            <div class="row inner-wrap">
+                <div class="col-md-2">
+                    <div class="main-logo">
+                        <router-link to="/manager/borrow"><img src="../../assets/img/logo.png" alt=""></router-link>
+                    </div>
+                </div>
+                <ul class="menu-list col-md-8 col-8">
+                    <li class="menu-item">
+                        <router-link to="/manager/NXB"
+                            :class="`${routeBookCheck() == 'manager-nxb' ? 'active' : ''}`">Quản Lý Nhà xuất
+                            bản</router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link to="/manager/book"
+                            :class="`${routeBookCheck() == 'manager-book' ? 'active' : ''}`">Quản Lý
+                            Sách</router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link to="/manager/borrow"
+                            :class="`${routeBookCheck() == 'manager-borrow' ? 'active' : ''}`">Quản Lý Mượn
+                            Sách</router-link>
+                    </li>
+                </ul>
+                <div class="btn-group col-md-2 button-header">
+                    <button type="button" class="btn btn-primary button-logout" @click="SignOut">Đăng xuất</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 </template>
 <script>
 import { ElButton, ElInput, ElMessage } from 'element-plus';
@@ -28,50 +54,18 @@ export default {
             this.$router.push({
                 path: '/'
             })
+        },
+        routeBookCheck() {
+            return this.$route.name
+        },
+        changeActive(value) {
+            this.active = value;
         }
     }
 }
 </script>
 <style>
-.header {
-    position: sticky;
-    padding: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #e5e5e5;
-}
-
-.header .header-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-}
-
-.header .header-box .text {
-    color: aqua;
-}
-
-.header .header-box .search-input {
-    width: 300px;
-    margin-left: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 4px 8px;
-}
-
-.header .header-box .search-input:focus {
-    outline: none;
-    border: 2px solid rgba(61, 108, 185, 0.6);
-    box-shadow: rgba(0, 224, 255, 0.1) 0px 6px 12px -2px, rgba(0, 224, 255, 0.1) 0px 3px 7px -3px;
-}
-
-.header .header-box .menu-icon {
-    font-size: 26px;
-}
-
-.header .header-box .action-link {
-    text-decoration: none;
+#header .inner-wrap .menu-item a {
+    font-weight: 600;
 }
 </style>

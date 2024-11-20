@@ -16,8 +16,6 @@
                         aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu" v-model="MatKhau" />
                     <input type="password" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Mật khẩu xác thực" v-model="MatKhau2" />
-                    <!-- <input type="text" class="form-control mt-3" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="Giới tính" v-model="GioiTinh" /> -->
                     <select class="form-control mt-3" v-model="GioiTinh" aria-label="Chọn giới tính">
                         <option value="" disabled selected>Chọn giới tính</option>
                         <option value="Nam">Nam</option>
@@ -26,7 +24,7 @@
                     <input type="text" class="form-control mt-3" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm" placeholder="Địa chỉ" v-model="DiaChi" />
                 </div>
-                <button type="button" class="btn btn-primary mt-2" @click="submit">Đăng ký</button>
+                <button type="button" class="btn btn-primary mt-2 button-submit" @click="submit">Đăng ký</button>
                 <span class="mt-4">Nếu đã có tài khoản? <router-link to="/login"><span>Đăng
                             nhập</span></router-link></span>
             </div>

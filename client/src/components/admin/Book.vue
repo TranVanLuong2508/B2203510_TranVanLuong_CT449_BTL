@@ -2,7 +2,8 @@
     <div class="Book">
         <h4 class="text-center m-2">Quản lý sách</h4>
         <div class="container create-btn-container d-flex justify-content-end">
-            <el-button type="primary" plain @click="handleNavigateToAddBook">Thêm sách mới</el-button>
+            <button type="button" class="btn btn-primary buttonAdd  " @click="handleNavigateToAddBook">Thêm sách
+                mới</button>
         </div>
         <div class="container table-container">
             <el-table :data="filteredBooks" style="width: 100%">
@@ -30,9 +31,6 @@
                         <router-link :to="`/book/${scope.row.MaSach}`">
                             {{ scope.row.TenSach }}
                         </router-link>
-                        <!-- <router-link :to="`/book/${scope.row.MaSach}`">
-                            {{ scope.row.TenSach }}
-                        </router-link> -->
                     </template>
                 </el-table-column>
                 <el-table-column label="Đơn giá">
@@ -107,4 +105,12 @@ export default {
     },
 }
 </script>
-<style></style>
+<style>
+.Book .button-manager {
+    margin-bottom: 15px;
+}
+
+.Book .button-manager:hover {
+    background-color: #D06B18;
+}
+</style>
