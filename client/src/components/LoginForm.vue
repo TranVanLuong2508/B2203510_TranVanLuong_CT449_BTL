@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="loginContainer">
+        <div class="loginContainer" data-aos="fade-up">
             <div class="loginBox">
                 <div class="box-head">
                     <img src="../assets/img/logo.png" class="logo" />
@@ -50,6 +50,8 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    justify-content: space-between;
+    margin-top: 60px;
 }
 
 .container .loginContainer .loginBox {
@@ -65,16 +67,6 @@ export default {
     padding: 32px 16px;
     border-radius: 4px;
 }
-
-/* 
-.container .loginContainer .loginBox .button-submit {
-    background-color: #C5A992;
-    border: #C5A992;    
-}
-
-.container .loginContainer .loginBox .button-submit:hover {
-    background-color: #D06B18;
-} */
 
 .container .box-head {
     display: flex;

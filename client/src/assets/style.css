@@ -297,8 +297,7 @@ p {
   margin-bottom: 30px;
 }
 
-/*----- Best Selling Section Section
---------------------------------------------------------------*/
+
 #best-selling {
   background: #EDEBE4;
   padding: 120px 0;
@@ -380,7 +379,7 @@ footer#footer {
   }
 }
 
-/* Shop page */
+
 .products-grid {
   display: flex;
   justify-content: space-between;

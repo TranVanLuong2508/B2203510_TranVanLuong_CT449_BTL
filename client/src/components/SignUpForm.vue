@@ -1,6 +1,7 @@
 <template>
+    <Header></Header>
     <div class="container">
-        <div class="loginContainer">
+        <div class="loginContainer" data-aos="fade-up">
             <div class="loginBox">
                 <div>
                     <img src="../assets/img/logo.png" class="logo" />
@@ -34,6 +35,7 @@
 <script>
 import { useUserStore } from '@/piniaStores/user.store';
 import { ElMessage } from 'element-plus';
+import Header from './Header.vue';
 export default {
     data() {
         return {
@@ -47,12 +49,20 @@ export default {
             message: '',
         }
     },
-
+    components: {
+        Header
+    },
     methods: {
         async submit() {
+            if (this.MatKhau !== this.MatKhau2) {
+                this.message = "Mật khẩu xác thực bị sai! Vui lòng nhập lại!";
+                ElMessage(this.message);
+                return;
+            }
+
             if (
-                this.MatKhau == this.MatKhau2 &&
                 this.MatKhau &&
+                this.MatKhau == this.MatKhau2 &&
                 this.GioiTinh &&
                 this.DiaChi &&
                 this.HoLot &&
@@ -66,15 +76,17 @@ export default {
                     DiaChi: this.DiaChi,
                     SoDienThoai: this.SoDienThoai,
                     MatKhau: this.MatKhau,
-                })
+                });
+                ElMessage(this.message);
             } else {
-                this.message = "Thông tin không hợp lệ! Vui lòng nhập lại"
+                this.message = "Vui lòng nhập đầy đủ thông tin!";
+                ElMessage(this.message);
             }
-            ElMessage(this.message)
             if (this.message === 'Đăng ký thành công! Hãy đăng nhập vào tài khoản của bạn') {
-                this.$router.push('/login')
+                this.$router.push('/login');
             }
         }
+
     }
 }
 </script>
@@ -86,6 +98,8 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    justify-content: space-between;
+    margin-top: 60px;
 }
 
 .container .loginContainer .loginBox {
@@ -102,6 +116,4 @@ export default {
 .container .loginContainer .loginBox .logo {
     width: 80px;
 }
-
-.container .loginContainer .loginBox .input {}
 </style>

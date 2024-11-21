@@ -1,16 +1,19 @@
 <template lang="">
     <div class="body">
+        <Header></Header>
         <LoginForm @handleSubmit="submit"></LoginForm>
-    </div>
+    </div>  
 </template>
 <script>
 import LoginForm from '@/components/LoginForm.vue';
 import { useUserStore } from '@/piniaStores/user.store';
 import { ElMessage } from 'element-plus';
+import Header from '@/components/Header.vue';
 export default {
     name: 'Login User',
     components: {
-        LoginForm
+        LoginForm,
+        Header
     },
     methods: {
         submit: async function (data) {

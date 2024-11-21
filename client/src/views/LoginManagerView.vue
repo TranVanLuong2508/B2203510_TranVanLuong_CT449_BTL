@@ -1,5 +1,6 @@
 <template>
     <div class="body">
+        <Header></Header>
         <LoginForm @handleSubmit="submit"></LoginForm>
     </div>
 </template>
@@ -7,10 +8,12 @@
 import LoginForm from "@/components/LoginForm.vue";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/piniaStores/user.store";
+import Header from "@/components/Header.vue";
 export default {
     name: "loginmanager",
     components: {
         LoginForm,
+        Header
     },
     methods: {
         async submit(data) {

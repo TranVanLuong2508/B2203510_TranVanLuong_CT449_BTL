@@ -49,7 +49,7 @@ export default {
 <template>
     <Header></Header>
     <main class="container">
-        <div class="detail-container mt-4">
+        <div class="detail-container mt-4" data-aos="fade-up">
             <div class="imageBox">
                 <img class="image" :src="bookStore.getBook(MaSach).image" alt="" />
             </div>

@@ -26,7 +26,7 @@
 								<a href="#">0388395602432</a>
 							</li>
 							<li class="menu-item">
-								<a href="#">MSSV: B2203510</a>
+								<a href="#">Đường 3/2, ĐH Cần Thơ</a>
 							</li>
 						</ul>
 					</div>
